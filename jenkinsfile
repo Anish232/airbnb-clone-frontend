@@ -10,7 +10,7 @@ pipeline {
     stages { 
         stage('Git Checkout') { 
             steps { 
-               git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Anish232/Boardgame12.git'
+               git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Anish232/airbnb-clone-frontend.git'
             } 
         } 
          
@@ -35,7 +35,7 @@ pipeline {
         stage('SonarQube Analsyis') { 
             steps { 
                 withSonarQubeEnv('sonar') { 
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Boardgame -Dsonar.projectKey=BoardGame -Dsonar.java.binaries=. ''' 
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=airbnbapp -Dsonar.projectKey=airbnbapp -Dsonar.java.binaries=. ''' 
                 } 
             } 
         } 
@@ -66,7 +66,7 @@ pipeline {
             steps { 
                script { 
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') { 
-                            sh "docker build -t anish0506/boardshack:latest ." 
+                            sh "docker build -t anish0506/airbnbapp:latest ." 
                     } 
                } 
             } 
@@ -74,7 +74,7 @@ pipeline {
          
         stage('Docker Image Scan') { 
             steps { 
-                sh "trivy image --format table -o trivy-image-report.html anish0506/boardshack:latest " 
+                sh "trivy image --format table -o trivy-image-report.html anish0506/airbnbapp:latest " 
             } 
         } 
          
@@ -82,7 +82,7 @@ pipeline {
             steps { 
                script { 
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') { 
-                            sh "docker push anish0506/boardshack:latest" 
+                            sh "docker push anish0506/airbnbapp:latest" 
                     } 
                } 
             } 
