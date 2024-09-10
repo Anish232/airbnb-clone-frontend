@@ -35,7 +35,7 @@ pipeline {
         stage('SonarQube Analsyis') { 
             steps { 
                 withSonarQubeEnv('sonar') { 
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=airbnbapp -Dsonar.projectKey=airbnbapp -Dsonar.java.binaries=. ''' 
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=airbnbapp-frontend -Dsonar.projectKey=airbnbapp-frontend -Dsonar.java.binaries=. ''' 
                 } 
             } 
         } 
